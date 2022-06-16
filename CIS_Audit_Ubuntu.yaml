@@ -1,0 +1,36 @@
+---
+- hosts: all
+  vars:
+    ansible_user: Ubuntu
+    ansible_python_interpreter: /usr/bin/python3
+    
+  tasks:
+    - name: Install goss
+      shell: curl -fsSL https://goss.rocks/install | sh
+      become_user: root
+
+    - name: Clone audit repo
+      git:
+        repo: https://github.com/ansible-lockdown/UBUNTU20-CIS-Audit.git
+        dest: /var/tmp/UBUNTU20-CIS-Audit
+
+    - name: Run the audit
+      shell: /var/tmp/UBUNTU20-CIS-Audit/run_audit.sh
+      become_user: root
+      register: audit_output
+
+    - name: Display output of audit
+      debug:
+        msg: "{{ audit_output.stdout }}"
+
+    - name: Find audit file
+      find:
+        path: /var/tmp/
+        patterns: "audit*.json"
+      register: audit_files
+
+    - name: Fetch audit output
+      fetch:
+        src: "{{ item.path }}"
+        dest: audit-logs
+      with_items: "{{ audit_files['files'] }}"
