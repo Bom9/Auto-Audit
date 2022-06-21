@@ -34,6 +34,7 @@
         src: "{{ item.path }}"
         dest: audit-logs
       with_items: "{{ audit_files['files'] }}"
+      become_user: root
 
     - name: Ansible remove audit file
       file:
