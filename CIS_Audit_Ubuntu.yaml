@@ -34,11 +34,15 @@
         src: "{{ item.path }}"
         dest: audit-logs
       with_items: "{{ audit_files['files'] }}"
-      become_user: root
 
-    - name: Ansible remove audit file
+    - name: Remove Audit file
       file:
         path: "{{ item.path }}"
         state: absent
       with_items: "{{ audit_files.files }}"
+
+    - name: Remove Audit directory
+      file:
+        path: /var/tmp/*Audit
+        state: absent
         
