@@ -41,8 +41,5 @@
         state: absent
       with_items: "{{ audit_files.files }}"
 
-    - name: Remove Audit directory
-      file:
-        path: /var/tmp/*Audit
-        state: absent
+    
         
