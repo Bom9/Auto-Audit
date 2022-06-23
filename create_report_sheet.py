@@ -8,7 +8,7 @@ def main(ARGS):
     wb = Workbook()
     ws = wb.active
 
-    for f in glob.glob('ansible/audit-logs/**/*.json', recursive=True):
+    for f in glob.glob('/home/*/Auto-Audit/audit-logs/**/*.json', recursive=True):
         filename = f.split('/')[-1]
         hostname = filename.split('_')[0]
         if ws.title == 'Sheet':
