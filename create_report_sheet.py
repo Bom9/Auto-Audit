@@ -3,12 +3,13 @@ from openpyxl.styles import PatternFill
 import argparse
 import json
 import glob
+import sys
 
-def main(ARGS):
+def main(ARGS,USER):
     wb = Workbook()
     ws = wb.active
-
-    for f in glob.glob('/home/*/Auto-Audit/audit-logs/**/*.json', recursive=True):
+    #username = parser.parse_args(sys.argv[2])
+    for f in glob.glob("/home/{}/Auto-Audit/audit-logs/**/*.json".format(USER.username), recursive=True):
         filename = f.split('/')[-1]
         hostname = filename.split('_')[0]
         if ws.title == 'Sheet':
@@ -38,5 +39,9 @@ def main(ARGS):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("filename", help="The filename for the spreadsheet that will be output")
+    
+    parser.add_argument("username")
+    user = parser.parse_args()
+    
     args = parser.parse_args()
-    main(args)
+    main(args,user)
