@@ -2,7 +2,7 @@
 - hosts: all
   become_user: root
   vars:
-    ansible_user: Ubuntu
+    ansible_user: abc
     ansible_python_interpreter: /usr/bin/python3
     
   tasks:
