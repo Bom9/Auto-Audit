@@ -14,6 +14,7 @@
       git:
         repo: https://github.com/ansible-lockdown/UBUNTU20-CIS-Audit.git
         dest: /var/tmp/UBUNTU20-CIS-Audit
+        version: updates
 
     - name: Run the audit
       shell: /var/tmp/UBUNTU20-CIS-Audit/run_audit.sh
