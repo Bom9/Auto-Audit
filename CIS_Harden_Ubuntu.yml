@@ -1,0 +1,33 @@
+---
+- hosts: all
+  vars:
+    ansible_user: Ubuntu
+    ansible_python_interpreter: /usr/bin/python3
+
+    # DISABLE 1.1.1.6 as it results with error | modprobe: FATAL: Module squashfs is builtin.
+    ubtu20cis_rule_1_1_1_6: false
+    ubtu20cis_rule_4_2_3: false
+    ubtu20cis_rule_5_3_4: false
+    ubtu20cis_rule_5_3_10: false
+    ubtu20cis_rule_3_5_1_7: false
+    ubtu20cis_ipv6_required: true
+    ubtu20cis_firewall_package: ufw
+    setup_audit: true
+    run_audit: true
+    audit_file_git: https://github.com/ansible-lockdown/UBUNTU20-CIS-Audit.git
+    audit_git_version: tweaks
+  roles:
+    - UBUNTU20-CIS
+  tasks:
+  - name: "ufw default deny incoming and routed"
+    ufw:
+        default: deny
+        direction: "{{ item }}"
+    with_items:
+        - incoming
+        - routed
+
+  - name: "ufw default allow outgoing"
+    ufw:
+        default: allow
+        direction: outgoing
