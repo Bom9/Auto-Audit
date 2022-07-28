@@ -6,10 +6,10 @@
 
     # DISABLE 1.1.1.6 as it results with error | modprobe: FATAL: Module squashfs is builtin.
     ubtu20cis_rule_1_1_1_6: false
+    ubtu20cis_rule_3_5_1_7: false
     ubtu20cis_rule_4_2_3: false
     ubtu20cis_rule_5_3_4: false
     ubtu20cis_rule_5_3_10: false
-    ubtu20cis_rule_3_5_1_7: false
     ubtu20cis_ipv6_required: true
     ubtu20cis_firewall_package: ufw
     setup_audit: true
